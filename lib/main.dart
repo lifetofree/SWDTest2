@@ -1,0 +1,225 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SWD Test2',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a purple toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'SWD Test2 Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    // no 1
+    final count = countDivisibleNumbers(1, 20);
+
+    // no 2
+    // Define the list data
+    final List<Map<String, dynamic>> data = [
+      {'id': 1, 'name': 'Elephant', 'age': 50},
+      {'id': 2, 'name': 'Dog', 'age': 5},
+      {'id': 3, 'name': 'Cat', 'age': 5},
+      {'id': 4, 'name': 'Ant', 'age': 1},
+      {'id': 5, 'name': 'Alligator', 'age': 20},
+      {'id': 6, 'name': 'Bird', 'age': 3},
+      {'id': 7, 'name': 'Horse', 'age': 2},
+      {'id': 8, 'name': 'Tiger', 'age': 24},
+    ];
+
+    List<int> dataNum = [1, 44, 5, 89, 100, 1, 44];
+    List<List<int>> dataNumList = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+    ];
+
+    final filteredNames = filterNamesByAge(data);
+    final filteredNamesStartWithA = filterNamesByName(data);
+    final displayMaxPosition = findMaxPosition(dataNum);
+    final flattenArray = flattenList(dataNumList);
+
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Container(
+          padding: const EdgeInsets.all(16),
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Flexible(flex: 1, child: Text(count)),
+              Flexible(
+                  flex: 1,
+                  child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        filteredNames,
+                      ))),
+              Flexible(
+                  flex: 1,
+                  child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        filteredNamesStartWithA,
+                      ))),
+              Flexible(
+                  flex: 1,
+                  child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        displayMaxPosition,
+                      ))),
+              Flexible(
+                  flex: 1,
+                  child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        flattenArray,
+                      ))),
+            ],
+          )
+          // Column(
+          //   // Column is also a layout widget. It takes a list of children and
+          //   // arranges them vertically. By default, it sizes itself to fit its
+          //   // children horizontally, and tries to be as tall as its parent.
+          //   //
+          //   // Column has various properties to control how it sizes itself and
+          //   // how it positions its children. Here we use mainAxisAlignment to
+          //   // center the children vertically; the main axis here is the vertical
+          //   // axis because Columns are vertical (the cross axis would be
+          //   // horizontal).
+          //   //
+          //   // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+          //   // action in the IDE, or press "p" in the console), to see the
+          //   // wireframe for each widget.
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: <Widget>[
+          //     const Text(
+          //       'You have pushed the button this many times:',
+          //     ),
+          //     Text(
+          //       '$_counter',
+          //       style: Theme.of(context).textTheme.headlineMedium,
+          //     ),
+          //   ],
+          // ),
+          ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  String countDivisibleNumbers(int start, int end) {
+    int count = 0;
+    for (int num = start; num <= end; num++) {
+      if (num % 3 == 0 || num % 5 == 0) {
+        count++;
+      }
+    }
+    return '1. The number of numbers between $start and $end divisible by 3 or 5 is: $count';
+  }
+
+  String filterNamesByAge(List<Map<String, dynamic>> dataList) {
+    String animalName = dataList
+        .where((element) => element['age'] < 20)
+        .map((element) => element['name'] as String)
+        .toList()
+        .toString();
+    return '2.1 The name of amimals have age lower than 20: $animalName';
+  }
+
+  String filterNamesByName(List<Map<String, dynamic>> dataList) {
+    String animalNameStartWithA = dataList
+        .where((element) => element['age'] < 20)
+        .map((element) => element['name'] as String)
+        .toList()
+        .toString();
+    return '2.2 The name of amimals has a name starting with "A": $animalNameStartWithA';
+  }
+
+  String findMaxPosition(List<int> data) {
+    if (data.isEmpty) {
+      return '-1';
+    }
+
+    int maxPosition = 0;
+    int maxValue = data[0];
+
+    for (int i = 1; i < data.length; i++) {
+      if (data[i] > maxValue) {
+        maxValue = data[i];
+        maxPosition = i;
+      }
+    }
+
+    return '3. The position of max number is: $maxPosition';
+  }
+
+  String flattenList(List<List<int>> data) {
+    return '4. falt array is: ${data.fold([], (acc, sublist) => acc..addAll(sublist))}';
+  }
+}
